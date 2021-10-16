@@ -19,7 +19,7 @@ namespace COMP2084G_Assignment.Models
         [MaxLength(100)]
         public string Author { get; set; }
 
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
 
         //  child reference
