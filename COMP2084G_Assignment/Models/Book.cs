@@ -21,6 +21,8 @@ namespace COMP2084G_Assignment.Models
 
         public byte[] Image { get; set; }
 
+        public int GenreId { get; set; }
+
 
         //  child reference
         public List<Rating> Ratings { get; set; }

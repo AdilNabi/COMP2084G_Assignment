@@ -11,6 +11,8 @@ namespace COMP2084G_Assignment.Models
         //  pk field
         public int RatingId { get; set; }
 
+        public int BookId { get; set; }
+
         [Required]
         [MaxLength(150)]
         public string Name { get; set; }
