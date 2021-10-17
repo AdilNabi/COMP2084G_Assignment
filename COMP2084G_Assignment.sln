@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "COMP2084G_Assignment", "COMP2084G_Assignment\COMP2084G_Assignment.csproj", "{EE52344F-7C55-48C7-9B49-5BE1B4329242}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "COMP2084G_Assignment", "COMP2084G_Assignment\COMP2084G_Assignment.csproj", "{EE52344F-7C55-48C7-9B49-5BE1B4329242}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C5E978F-173C-4A9A-AEB1-F8B5F4F91D43}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
