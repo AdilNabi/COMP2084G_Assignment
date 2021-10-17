@@ -30,6 +30,7 @@ namespace COMP2084G_Assignment.Models
 
         //  below will create a textbox for the body
         [Required]
+        [Display(Name = "Review")]
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
 

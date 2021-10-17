@@ -22,7 +22,7 @@ namespace COMP2084G_Assignment.Controllers
         // GET: Ratings
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Ratings.Include(r => r.Book);
+            var applicationDbContext = _context.Ratings.Include(r => r.Book).OrderBy(b => b.Heading);
             return View(await applicationDbContext.ToListAsync());
         }
 
