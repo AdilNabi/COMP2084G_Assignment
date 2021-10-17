@@ -1,28 +1,27 @@
 ﻿@model IEnumerable<COMP2084G_Assignment.Models.Book>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
 }
 
-<h1>Index</h1>
+<h1>Books</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table sortable">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <a href ="#">Title</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                <a href="#">Author</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                <a href="#">Genre</a>
             </th>
             <th></th>
         </tr>
@@ -37,7 +36,14 @@
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @if (item.Image != null)
+                {
+                    <img src="~/img/books/@item.Image" alt="Book Cover" width="150" />
+                }
+                else
+                {
+                    <img src="~/img/books/placeholder.png" alt="Book Cover" width="150" />
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Genre.Name)

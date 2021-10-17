@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<COMP2084G_Assignment.Models.Rating>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Ratings";
 }
 
-<h1>Index</h1>
+<h1>Book Ratings</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,16 +13,18 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a href="#">Heading</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <a href="#">Score</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Score)
+                <a href="#">Book Title</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                <a href="#">Name</a>
             </th>
             <th></th>
         </tr>
@@ -31,16 +33,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.Heading)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Score)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Book.Author)
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RatingId">Edit</a> |

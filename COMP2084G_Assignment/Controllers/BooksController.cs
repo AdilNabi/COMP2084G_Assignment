@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using COMP2084G_Assignment.Data;
 using COMP2084G_Assignment.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace COMP2084G_Assignment.Controllers
 {
@@ -22,7 +24,8 @@ namespace COMP2084G_Assignment.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Books.Include(b => b.Genre);
+            //  implemented sorting based from class
+            var applicationDbContext = _context.Books.Include(b => b.Genre).OrderBy(b => b.Author).ThenBy(b => b.Title);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -48,7 +51,7 @@ namespace COMP2084G_Assignment.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name");
+            ViewData["GenreId"] = new SelectList(_context.Genres.OrderBy(c => c.Name), "GenreId", "Name");
             return View();
         }
 
@@ -57,16 +60,38 @@ namespace COMP2084G_Assignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,Title,Author,Image,GenreId")] Book book)
+        public async Task<IActionResult> Create([Bind("BookId,Title,Author,GenreId")] Book book, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null)
+                {
+                    var fileName = UploadImage(Image);
+                    book.Image = fileName;
+                }
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name", book.GenreId);
             return View(book);
+        }
+
+        //  This code was based from class work for image uploading
+        private static string UploadImage(IFormFile Image)
+        {
+            var filePath = Path.GetTempFileName();
+
+            var fileName = Guid.NewGuid() + "-" + Image.FileName;
+
+            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img\\books\\" + fileName;
+
+            using (var stream = new FileStream(uploadPath, FileMode.Create))
+            {
+                Image.CopyTo(stream);
+            }
+
+            return fileName;
         }
 
         // GET: Books/Edit/5
@@ -82,7 +107,7 @@ namespace COMP2084G_Assignment.Controllers
             {
                 return NotFound();
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "GenreId", "Name", book.GenreId);
+            ViewData["GenreId"] = new SelectList(_context.Genres.OrderBy(c => c.Name), "GenreId", "Name", book.GenreId);
             return View(book);
         }
 
@@ -91,7 +116,7 @@ namespace COMP2084G_Assignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Image,GenreId")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,GenreId")] Book book, IFormFile Image)
         {
             if (id != book.BookId)
             {
@@ -102,6 +127,11 @@ namespace COMP2084G_Assignment.Controllers
             {
                 try
                 {
+                    if(Image != null)
+                    {
+                        var fileName = UploadImage(Image);
+                        book.Image = fileName;
+                    }
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }

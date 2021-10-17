@@ -48,7 +48,7 @@ namespace COMP2084G_Assignment.Controllers
         // GET: Ratings/Create
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Author");
+            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace COMP2084G_Assignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RatingId,BookId,Name,Title,Score")] Rating rating)
+        public async Task<IActionResult> Create([Bind("RatingId,BookId,Name,Heading,Score,Body")] Rating rating)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace COMP2084G_Assignment.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Author", rating.BookId);
+            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title", rating.BookId);
             return View(rating);
         }
 
@@ -82,7 +82,7 @@ namespace COMP2084G_Assignment.Controllers
             {
                 return NotFound();
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Author", rating.BookId);
+            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title", rating.BookId);
             return View(rating);
         }
 
@@ -91,7 +91,7 @@ namespace COMP2084G_Assignment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RatingId,BookId,Name,Title,Score")] Rating rating)
+        public async Task<IActionResult> Edit(int id, [Bind("RatingId,BookId,Name,Heading,Score,Body")] Rating rating)
         {
             if (id != rating.RatingId)
             {
@@ -118,7 +118,7 @@ namespace COMP2084G_Assignment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Author", rating.BookId);
+            ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title", rating.BookId);
             return View(rating);
         }
 

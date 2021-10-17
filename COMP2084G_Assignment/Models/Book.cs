@@ -19,8 +19,11 @@ namespace COMP2084G_Assignment.Models
         [MaxLength(100)]
         public string Author { get; set; }
 
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
+
+        //  fk field
+        [Display(Name = "Genre")]
         public int GenreId { get; set; }
 
 
