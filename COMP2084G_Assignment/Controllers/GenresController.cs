@@ -10,6 +10,7 @@ using COMP2084G_Assignment.Models;
 
 namespace COMP2084G_Assignment.Controllers
 {
+    
     public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
