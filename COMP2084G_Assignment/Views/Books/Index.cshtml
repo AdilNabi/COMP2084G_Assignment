@@ -7,7 +7,10 @@
 <h1>Books</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Create">Create New</a>
+    }
 </p>
 <table class="table sortable table-striped table-hover">
     <thead>
@@ -49,9 +52,12 @@
                 @Html.DisplayFor(modelItem => item.Genre.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.BookId">Details</a>
             </td>
         </tr>
 }

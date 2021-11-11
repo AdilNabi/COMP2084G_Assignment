@@ -47,9 +47,12 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RatingId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RatingId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RatingId">Delete</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.RatingId">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.RatingId">Delete</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.RatingId">Details</a>
             </td>
         </tr>
 }
