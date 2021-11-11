@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using COMP2084G_Assignment.Data;
 using COMP2084G_Assignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP2084G_Assignment.Controllers
 {
-    
+     // make all the methods private
+     [Authorize]
     public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,8 +27,9 @@ namespace COMP2084G_Assignment.Controllers
         {
             return View(await _context.Genres.ToListAsync());
         }
-
+        
         // GET: Genres/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
