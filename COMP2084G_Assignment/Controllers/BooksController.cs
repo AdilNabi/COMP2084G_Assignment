@@ -9,9 +9,11 @@ using COMP2084G_Assignment.Data;
 using COMP2084G_Assignment.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP2084G_Assignment.Controllers
 {
+    [Authorize]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +24,7 @@ namespace COMP2084G_Assignment.Controllers
         }
 
         // GET: Books
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             //  implemented sorting based from class
@@ -29,6 +32,7 @@ namespace COMP2084G_Assignment.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {

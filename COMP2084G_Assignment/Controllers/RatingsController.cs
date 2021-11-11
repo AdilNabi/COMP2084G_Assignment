@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using COMP2084G_Assignment.Data;
 using COMP2084G_Assignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP2084G_Assignment.Controllers
 {
+    [Authorize]
     public class RatingsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace COMP2084G_Assignment.Controllers
         }
 
         // GET: Ratings
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Ratings.Include(r => r.Book).OrderBy(b => b.Heading);
@@ -27,6 +30,7 @@ namespace COMP2084G_Assignment.Controllers
         }
 
         // GET: Ratings/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

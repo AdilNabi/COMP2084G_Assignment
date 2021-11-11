@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace COMP2084G_Assignment.Controllers
 {
-     // make all the methods private
      [Authorize]
     public class GenresController : Controller
     {
