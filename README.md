@@ -6,6 +6,10 @@
 <a href="https://comp2084g-assignment.azurewebsites.net">Live Website</a>
 <p>https://comp2084g-assignment.azurewebsites.net : Direct Link</p>
 
+<p>Account details</p>
+<p>username: rich@gc.ca</p>
+<p>password: Test123$</p>
+
 <p>In this assignment I created a .NET Core MVC web application using C# with integration to a SQL-Server database through Azure portal.</p>
 <p>In this application the user can register an account which allows them to create genres, books and reviews for books which are all related through parent-child references.</p>
 <p>Users can even register their account using Google authentication. Unregisterd users may view books and reviews only.</p>
