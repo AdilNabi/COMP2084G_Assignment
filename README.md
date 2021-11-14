@@ -3,8 +3,12 @@
 
 <h3>This project is for the assignment of COMP2084G of Lakehead-Georgian in which I create a digital library with rating functionality.</h3>
 
+<a href="https://comp2084g-assignment.azurewebsites.net">Live Website</a>
+<p>https://comp2084g-assignment.azurewebsites.net : Direct Link</p>
+
 <p>In this assignment I created a .NET Core MVC web application using C# with integration to a SQL-Server database through Azure portal.</p>
-<p>In this application the user can create genres, books and reviews for books which are all related through parent-child references.</p>
+<p>In this application the user can register an account which allows them to create genres, books and reviews for books which are all related through parent-child references.</p>
+<p>Users can even register their account using Google authentication. Unregisterd users may view books and reviews only.</p>
 <p>Users can save a multitude of books including cover arts along with reviews in which they can leave a numerical score along with a body of text sharing their opinions on the books.</p>
 
 <p>It works quite simple where each section of genre, book and review display a list of its respective contents. Users can go and edit current entries or view them with greater details. For example a user can view details of a review to see the review body of the rating and read the reviewers impressions of the book.</p>
