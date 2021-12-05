@@ -26,7 +26,7 @@ namespace COMP2084G_Assignment.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Ratings.Include(r => r.Book).OrderBy(b => b.Heading);
-            return View(await applicationDbContext.ToListAsync());
+            return View("Index", await applicationDbContext.ToListAsync());
         }
 
         // GET: Ratings/Details/5
@@ -35,7 +35,7 @@ namespace COMP2084G_Assignment.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var rating = await _context.Ratings
@@ -43,10 +43,10 @@ namespace COMP2084G_Assignment.Controllers
                 .FirstOrDefaultAsync(m => m.RatingId == id);
             if (rating == null)
             {
-                return NotFound();
+                return View("404");
             }
 
-            return View(rating);
+            return View("Details", rating);
         }
 
         // GET: Ratings/Create
