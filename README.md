@@ -15,6 +15,8 @@
 <p>Users can even register their account using Google authentication. Unregisterd users may view books and reviews only.</p>
 <p>Users can save a multitude of books including cover arts along with reviews in which they can leave a numerical score along with a body of text sharing their opinions on the books.</p>
 
+<p>Project has almost complete testing for one of its controllers (Rating Controller) with the exception of the POST methods.</p>
+
 <p>It works quite simple where each section of genre, book and review display a list of its respective contents. Users can go and edit current entries or view them with greater details. For example a user can view details of a review to see the review body of the rating and read the reviewers impressions of the book.</p>
 
 <h3>NOTES:</h3>

@@ -28,10 +28,10 @@ namespace AssignmentTests
             _context = new ApplicationDbContext(options);
 
             // create mock data for the testing
-            var Genre = new Genre 
-            { 
+            var Genre = new Genre
+            {
                 GenreId = 1000,
-                Name = "Test Genre" 
+                Name = "Test Genre"
             };
 
             var Book = new Book
@@ -89,15 +89,15 @@ namespace AssignmentTests
 
         #region Index
         [TestMethod]
-         public void IndexLoadsCorrectView()
-         {
+        public void IndexLoadsCorrectView()
+        {
 
             // act
             var result = (ViewResult)controller.Index().Result;
 
             // assert
             Assert.AreEqual("Index", result.ViewName);
-         }
+        }
 
         [TestMethod]
         public void IndexLoadsRatings()
@@ -158,6 +158,152 @@ namespace AssignmentTests
         }
         #endregion
 
+        #region Create
+        [TestMethod]
+        public void CreateLoadsValidList()
+        {
+           // act
+            var result = controller.Create();
+
+            // assert
+            var resultViewData = controller.ViewData["BookId"];
+
+            Assert.IsNotNull(result);          
+        }
+
+        [TestMethod]
+        public void CreateLoadsCorrectView()
+        {
+            // act
+            var result = (ViewResult)controller.Create();
+
+            // assert
+            Assert.AreEqual("Create", result.ViewName);
+        }
+
+
+        [TestMethod]
+        public void CreateSaveToDb()
+        {
+            var rating = new Rating
+            {
+                RatingId = 605,
+                Heading = "Test Heading",
+                Name = "Test Reviewer",
+                Body = "Test Body",
+                Book = new Book { BookId = 987, Title = "Test Book", Author = "John Doe", Image = "Test Image", Genre = new Genre { GenreId = 456, Name = "Test Genre" } }
+            };
+
+            _context.Ratings.Add(rating);
+            _context.SaveChanges();
+
+            Assert.AreEqual(rating, _context.Ratings.Find(605));
+        }
+        #endregion
+
+        #region Edit
+        [TestMethod]
+        public void EditNoIdLoads404()
+        {
+            var result = (ViewResult)controller.Edit(null).Result;
+
+            Assert.AreEqual("404", result.ViewName);
+        }
+
+        [TestMethod]
+        public void EditInvalidIdLoads404()
+        {
+            var result = (ViewResult)controller.Edit(-1).Result;
+
+            Assert.AreEqual("404", result.ViewName);
+        }
+
+        [TestMethod]
+        public void EditIsValidIdLoadView()
+        {
+            var result = (ViewResult)controller.Edit(201).Result;
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [TestMethod]
+        public void EditLoadsValidModel()
+        {
+            var result = (ViewResult)controller.Edit(201).Result;
+
+            Assert.AreEqual(_context.Ratings.Find(201), (Rating)result.Model);
+
+        }
+        #endregion
+
+
+
+
+        #region Delete
+        [TestMethod]
+        public void DeleteNoIdLoads404()
+        {
+            // act
+            var result = (ViewResult)controller.Delete(null).Result;
+
+            // assert
+            Assert.AreEqual("404", result.ViewName);
+
+        }
+
+        [TestMethod]
+        public void DeleteInvalidIdLoads404()
+        {
+            // act
+            var result = (ViewResult)controller.Delete(-1).Result;
+
+            // assert
+            Assert.AreEqual("404", result.ViewName);
+        }
+
+        [TestMethod]
+        public void DeleteValidIdLoadsView()
+        {
+            // act
+            var result = (ViewResult)controller.Delete(201).Result;
+
+            // assert
+            Assert.AreEqual("Delete", result.ViewName);
+        }
+
+
+        [TestMethod]
+        public void DeleteIsValidIdLoadsRating()
+        {
+            // act
+            var result = (ViewResult)controller.Delete(201).Result;
+            Rating rating = (Rating)result.Model;
+
+            // assert
+            Assert.AreEqual(ratings[0], rating);
+        }
+
+        [TestMethod]
+        public void DeleteValidIdConfirm()
+        {
+            var result = controller.DeleteConfirmed(201);
+
+            var rating = _context.Ratings.Find(201);
+
+            Assert.AreEqual(rating, null);
+        }
+
+
+        [TestMethod]
+        public void DeleteValidIdConfirmRedirect()
+        {
+            var result = controller.DeleteConfirmed(201);
+
+            var redirectResult = (RedirectToActionResult)result.Result;
+
+            Assert.AreEqual("Index", redirectResult.ActionName);
+
+        }
+        #endregion
 
 
     }

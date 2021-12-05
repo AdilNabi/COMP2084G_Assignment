@@ -53,7 +53,7 @@ namespace COMP2084G_Assignment.Controllers
         public IActionResult Create()
         {
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title");
-            return View();
+            return View("Create");
         }
 
         // POST: Ratings/Create
@@ -70,7 +70,7 @@ namespace COMP2084G_Assignment.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title", rating.BookId);
-            return View(rating);
+            return View("Create",rating);
         }
 
         // GET: Ratings/Edit/5
@@ -78,16 +78,16 @@ namespace COMP2084G_Assignment.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var rating = await _context.Ratings.FindAsync(id);
             if (rating == null)
             {
-                return NotFound();
+                return View("404");
             }
             ViewData["BookId"] = new SelectList(_context.Books, "BookId", "Title", rating.BookId);
-            return View(rating);
+            return View("Edit",rating);
         }
 
         // POST: Ratings/Edit/5
@@ -99,7 +99,7 @@ namespace COMP2084G_Assignment.Controllers
         {
             if (id != rating.RatingId)
             {
-                return NotFound();
+                return View("404");
             }
 
             if (ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace COMP2084G_Assignment.Controllers
                 {
                     if (!RatingExists(rating.RatingId))
                     {
-                        return NotFound();
+                        return View("404");
                     }
                     else
                     {
@@ -131,7 +131,7 @@ namespace COMP2084G_Assignment.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var rating = await _context.Ratings
@@ -139,10 +139,10 @@ namespace COMP2084G_Assignment.Controllers
                 .FirstOrDefaultAsync(m => m.RatingId == id);
             if (rating == null)
             {
-                return NotFound();
+                return View("404");
             }
 
-            return View(rating);
+            return View("Delete",rating);
         }
 
         // POST: Ratings/Delete/5
